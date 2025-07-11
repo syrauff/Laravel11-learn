@@ -10,9 +10,10 @@
       <img src="https://source.unsplash.com/1200x700?{{$post->title}}" class="w-full h-48 object-cover">
       @endif --}}
       <div class="p-4">
-        <h5 class="text-xl font-semibold mb-2">{{$post->title}}</h5>
+        <a href="/posts/{{ $post->slug }}"> <h5 class="text-xl font-semibold mb-2">{{$post->title}}</h5></a>
         <h6 class="mb-4">
-          <a href="/posts?user={{$post->author}}" class="text-blue-500 hover:underline">{{$post->author}}</a>
+          {{-- Khusus format date --> akhiran ->format('j F Y') / ->diffForHumans() --}}
+          <a href="/posts?user={{$post->author}}" class="text-blue-500 hover:underline">{{$post->author}}</a> | {{ $post->created_at->diffForHumans()}}
           {{-- in
           <a href="/posts?category={{$post->category->slug}}" class="text-blue-500 hover:underline">{{$post->category->name}}</a> --}}
         </h6>
