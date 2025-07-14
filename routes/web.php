@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
@@ -31,7 +33,16 @@ Route::get('/contact', function () {
 
 Route::resource('/posts', PostController::class);
 
-Route::view('/login', 'auth.login', ['title' => 'Login Page'])->name('login');
+Route::get('users/{user:name}', function (User $user) {
+    return view('posts.index', [
+        'title' => "Posts by $user->name",
+        'posts' => $user->posts
+    ]);
+})->name('user.posts');
+
+Route::get('/login', [LoginController::class, 'create'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login');
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register');

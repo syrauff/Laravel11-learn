@@ -6,7 +6,7 @@
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Buat Postingan Baru</h1>
 
             {{-- Form untuk membuat postingan baru --}}
-            <form action="POST" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf  {{-- Token keamanan Laravel --}}
 
                 <div class="mb-4">

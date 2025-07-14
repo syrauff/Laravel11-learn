@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -14,10 +15,20 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
+        $title = 'All Posts';
+
+        $query = Post::latest();
+
+        // if (request('user')){
+        //     $user = User::findOrFail(request('user'));
+        //     $query->where('user_id', $user->id);
+
+        //     $title = 'Posts by ' . $user->name;
+        // }
+        
         return view('posts.index', [
-            'title' => 'Blog',
-            'posts' => $posts
+            'title' => $title,
+            'posts' => $query->get()
         ]);
     }
 

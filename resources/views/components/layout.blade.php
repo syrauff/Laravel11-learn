@@ -10,6 +10,9 @@
     <title>{{ $title ?? 'Laravel versi gua' }}</title>
 </head>
 <body class="h-full">
+@if (session()->has('success'))
+@endif
+<x-atoms.modal />
     <!--
   This example requires updating your template:
 

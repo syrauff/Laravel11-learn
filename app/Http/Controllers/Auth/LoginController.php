@@ -24,10 +24,10 @@ class LoginController extends Controller
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/')->with('success', 'Login successful!');
-        }
+        } 
 
         return back()->withErrors([
-            'email' => 'Email or password is incorrect.',
+            'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     
     }
@@ -38,5 +38,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        return redirect('/login')->with('success', 'You have been logged out successfully!');
     }
 }
