@@ -19,6 +19,12 @@
         </div>
 
         <div class="mb-4">
+            <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username: </label>
+            <input type="text" id="username" name="username" required
+                   class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div class="mb-4">
             <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
             <input type="password" id="password" name="password" required
                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">

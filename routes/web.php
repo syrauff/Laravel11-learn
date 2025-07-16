@@ -31,7 +31,23 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::resource('/posts', PostController::class);
+Route::middleware('auth')->group(function () {
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+});    
+
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+// Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+
+Route::get('/test-upload', fn() => view('test-upload'));
+Route::post('/test-upload', fn(Illuminate\Http\Request $request) => dd($request->all()))->name('test.upload');
+
+// Route::resource('/posts', PostController::class);
 
 Route::get('users/{user:name}', function (User $user) {
     return view('posts.index', [

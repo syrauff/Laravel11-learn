@@ -10,7 +10,7 @@ class Post extends Model
 {
     // Gunakan jika nama table tidak ada s di akhir nama models dan id bukan id
     // protected $table = 'nama_table_jika_bukan_posts';
-        use HasFactory;
+    use HasFactory;
 
     protected $guarded = ['id'];
 
@@ -21,7 +21,7 @@ class Post extends Model
     {
         return 'slug';
     }
-    protected $fillable = ['title', 'author', 'slug', 'body'];
+    protected $fillable = ['title', 'slug', 'body', 'image', 'user_id'];
 
     public function user(): BelongsTo  
     {

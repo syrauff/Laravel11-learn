@@ -13,7 +13,7 @@
         <a href="/posts/{{ $post->slug }}"> <h5 class="text-xl font-semibold mb-2">{{$post->title}}</h5></a>
         <h6 class="mb-4">
           {{-- Khusus format date --> akhiran ->format('j F Y') / ->diffForHumans() --}}
-          <a href="{{ route('user.posts', $post->user) }}" class="text-blue-500 hover:underline">{{$post->user->name}}</a> | {{ $post->created_at->diffForHumans()}}
+          <a href="{{ route('user.posts', $post->user) }}" class="text-blue-500 hover:underline">{{$post->user->username}}</a> | {{ $post->created_at->diffForHumans()}}
           {{-- in
           <a href="/posts?category={{$post->category->slug}}" class="text-blue-500 hover:underline">{{$post->category->name}}</a> --}}
         </h6>

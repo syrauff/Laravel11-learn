@@ -17,7 +17,7 @@ class PostController extends Controller
     {
         $title = 'All Posts';
 
-        $query = Post::latest();
+        $query = Post::with('user')->latest();
 
         // if (request('user')){
         //     $user = User::findOrFail(request('user'));
@@ -41,10 +41,11 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        try {
+        // dd($request->all());
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
-            'image' => 'image|file|max:2048',
+            'image' => 'nullable|image|file|max:2048',
             'body' => 'required'
         ]);
 
@@ -53,10 +54,14 @@ class PostController extends Controller
         }
 
         $validatedData['slug'] = Str::slug($request->title, '-');
+        $validatedData['user_id'] = auth()->id();
 
         Post::create($validatedData);
 
         return redirect('/posts')->with('success', 'New blog post created successfully!');
+        } catch (\Exception $e) {
+            return redirect('/posts/create')->withErrors(['error' => 'Failed to create post: ' . $e->getMessage()]);
+        }
     }
 
     public function show(Post $post)
