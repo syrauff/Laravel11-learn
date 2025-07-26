@@ -18,6 +18,7 @@ return new class extends Migration
                 table: 'users', indexName: 'posts_user_id'
             );
             $table->string('slug')->unique();
+            $table->foreignId('category_id')->constrained('categories');
             $table->text('body');
             $table->string('image')->nullable();
             $table->timestamps();

@@ -1,4 +1,4 @@
-<aside class="bg-sidebar h-screen fixed w-64 hidden sm:block shadow-xl bg-slate-600">
+<aside class="bg-sidebar h-screen w-12 fixed hover:w-64 hidden sm:block shadow-xl bg-slate-600">
     <div class="p-6">
         <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
         <button
@@ -15,7 +15,7 @@
             <i class="fa-solid fa-signs-post mr-3"></i>
             Posts
         </x-atoms.side-link>
-        <x-atoms.side-link href="{{ route('dashboard.posts.index') }}" :active="request()->routeIs('#')">
+        <x-atoms.side-link href="{{ route('dashboard.categories') }}" :active="request()->routeIs('dashboard.categories')">
             <i class="fas fa-table mr-3"></i>
             Category
         </x-atoms.side-link>
