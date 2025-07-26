@@ -37,7 +37,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::get('/posts/create', [App\Http\Controllers\Dashboard\PostController::class, 'create'])->name('posts.create');
     Route::get('/posts/{post}/edit', [App\Http\Controllers\Dashboard\PostController::class, 'edit'])->name('dashboard.posts.edit');
     Route::put('/posts/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'update'])->name('dashboard.posts.update');
-    Route::delete('/posts/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'destroy'])->name('posts.destroy');
+    Route::delete('/posts/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'destroy'])->name('dashboard.posts.destroy');
 });    
 
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('pages.posts.index');

@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -14,7 +15,10 @@ class PostController extends Controller
     {
         $title = 'Your Posts';
 
-        $posts = Auth::user()->posts;
+        $posts = Post::where('user_id', auth()->id())
+                    ->latest()
+                    ->with('user')
+                    ->paginate(10);
 
         return view('dashboard.posts.index', [
             'title' => $title,
@@ -40,11 +44,13 @@ class PostController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('post-images');
+            $validatedData['image'] = $request->file('image')->store('post-images', 'public');
         }
 
         $validatedData['slug'] = Str::slug($request->title, '-');
         $validatedData['user_id'] = auth()->id();
+
+        if ($request->file('image')){}
 
         Post::create($validatedData);
 
@@ -83,6 +89,14 @@ class PostController extends Controller
 
         if ($request->title !== $post->title) {
             $validatedData['slug'] = Str::slug($request->title, '-');
+        }
+
+        if ($request->file('image')){
+            if($post->image){
+                Storage::delete($post->image);
+            }
+
+            $validatedData['image'] = $request->file('image')->store('post-image', 'public');
         }
 
         $post->update($validatedData);
