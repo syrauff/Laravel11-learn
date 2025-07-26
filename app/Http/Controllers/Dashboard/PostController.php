@@ -16,9 +16,9 @@ class PostController extends Controller
 
         $posts = Auth::user()->posts;
 
-        return view('posts.index', [
+        return view('dashboard.posts.index', [
             'title' => $title,
-            'posts' => $posts->get()
+            'posts' => $posts
         ]);
     }
 
@@ -34,7 +34,7 @@ class PostController extends Controller
         try {
         // dd($request->all());
         $validatedData = $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique',
             'image' => 'nullable|image|file|max:2048',
             'body' => 'required'
         ]);
@@ -64,7 +64,8 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts.edit', [
+
+        return view('dashboard.posts.edit', [
             'title' => 'Edit Blog',
             'post' => $post
         ]);
@@ -74,7 +75,6 @@ class PostController extends Controller
     {
         $rules = [
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
             'image' => 'image|file|max:2048',
             'body' => 'required'
         ];
@@ -87,7 +87,7 @@ class PostController extends Controller
 
         $post->update($validatedData);
 
-        return redirect('/posts')->with('success', 'Blog post updated successfully!');
+        return redirect('/dashboard/posts')->with('success', 'Blog post updated successfully!');
 
     }
 

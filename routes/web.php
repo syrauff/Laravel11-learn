@@ -3,7 +3,6 @@
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -31,17 +30,19 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::prefix('dashboard')->middleware('auth')->group(function () {
+    Route::get('/', function(){return view('dashboard.index');})->name('dashboard.index');
+    Route::get('/posts', [App\Http\Controllers\Dashboard\PostController::class, 'index'])->name('dashboard.posts.index');
+    Route::post('/posts', [App\Http\Controllers\Dashboard\PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/create', [App\Http\Controllers\Dashboard\PostController::class, 'create'])->name('posts.create');
+    Route::get('/posts/{post}/edit', [App\Http\Controllers\Dashboard\PostController::class, 'edit'])->name('dashboard.posts.edit');
+    Route::put('/posts/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'update'])->name('dashboard.posts.update');
+    Route::delete('/posts/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'destroy'])->name('posts.destroy');
 });    
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-// Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('pages.posts.index');
+// Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create')->middleware('auth');
+Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
 
 Route::get('/test-upload', fn() => view('test-upload'));

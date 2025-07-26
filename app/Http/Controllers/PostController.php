@@ -26,7 +26,7 @@ class PostController extends Controller
         //     $title = 'Posts by ' . $user->name;
         // }
         
-        return view('posts.index', [
+        return view('pages.posts.index', [
             'title' => $title,
             'posts' => $query->get()
         ]);

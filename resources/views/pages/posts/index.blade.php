@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <h3>Halaman Blog</h3>
+    <h3>Halaman </h3>
 @foreach ($posts as $post)
   <article class="col">
     <div class="card h-100 bg-white shadow-lg rounded-lg overflow-hidden">
