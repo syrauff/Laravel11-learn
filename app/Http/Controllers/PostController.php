@@ -14,7 +14,7 @@ class PostController extends Controller
     {
         $title = 'All Posts';
 
-        $query = Post::with('user')->latest();
+        $query = Post::with('user', 'category')->latest();
 
         return view('pages.posts.index', [
             'title' => $title,
