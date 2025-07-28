@@ -15,10 +15,12 @@
             <i class="fa-solid fa-signs-post mr-3"></i>
             Posts
         </x-atoms.side-link>
-        <x-atoms.side-link href="{{ route('dashboard.categories') }}" :active="request()->routeIs('dashboard.categories')">
-            <i class="fas fa-table mr-3"></i>
-            Category
-        </x-atoms.side-link>
+        @if (auth()->check() && auth()->user()->role === 'admin')
+            <x-atoms.side-link href="{{ route('dashboard.categories') }}" :active="request()->routeIs('dashboard.categories.*')">
+                <i class="fas fa-table mr-3"></i>
+                Category
+            </x-atoms.side-link>
+        @endif
         <x-atoms.side-link href="{{ route('dashboard.posts.index') }}" :active="request()->routeIs('#')">
             <i class="fas fa-align-left mr-3"></i>
             Group
